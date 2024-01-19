@@ -1,0 +1,30 @@
+package AnimalFrontEndPackage;
+import java.util.Scanner;
+import java.util.ArrayList;
+public class AnimalCollection 
+{
+	private ArrayList<Animal> animalList = new ArrayList<Animal>();
+	public void add(Animal added)
+	{
+		animalList.add(added);
+	}
+	public void remove(String name)
+	{
+		for(int i = 0; i < animalList.size(); i++)
+		{
+			if(name.equals(animalList.get(i).name))
+			{
+				animalList.remove(i);
+				break;
+			}
+		}
+	}
+	public void printList()
+	{
+		for(int i = 0; i < animalList.size(); i++)
+		{
+			animalList.get(i).print();
+		}
+	}
+	
+}
