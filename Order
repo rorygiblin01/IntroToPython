@@ -1,0 +1,120 @@
+public class Order implements Comparable
+{
+		//instance variables	
+		private String customer;
+		private String foodOrder;
+		private int cookTime;
+		private int arrivalTime;
+		private int cookTimeLeft;
+		//constructor
+		public Order()
+		{
+			customer = " ";
+			foodOrder = " ";
+			cookTime = 0;
+			arrivalTime = 0;
+			cookTimeLeft = 0;
+		}
+		public Order(String aCustomer, String aFoodOrder, int aCookTime, int aArrivalTime)
+		{
+			setCustomer(aCustomer);
+			setFoodOrder(aFoodOrder);
+			setCookTime(aCookTime);
+			setArrivalTime(aArrivalTime);
+		}
+		//getters and setters
+		public String getCustomer()
+		{
+			return customer;
+		}
+		public String getFoodOrder()
+		{
+			return foodOrder;
+		}
+		public int getCookTime()
+		{
+			return cookTime;
+		}
+		public int getArrivalTime()
+		{
+			return arrivalTime;
+		}
+		public int getCookTimeLeft()
+		{
+			return cookTimeLeft;
+		}
+		public void setCustomer(String aCustomer)
+		{
+			if(aCustomer != null)
+			{
+				this.customer = aCustomer;
+			}
+		}
+		public void setFoodOrder(String aFoodOrder)
+		{
+			if(aFoodOrder != null)
+			{
+				this.customer = aFoodOrder;
+			}
+		}
+		public void setCookTime(int aCookTime)
+		{
+			if(this.cookTime >= 0.0)
+			{
+				this.cookTime = aCookTime;
+			}
+		}
+		public void setArrivalTime(int aArrivalTime)
+		{
+			if(this.arrivalTime >= 0.0)
+			{
+				this.arrivalTime = aArrivalTime;
+			}
+		}
+		public void setCookTimeLeft(int aCookTimeLeft)
+		{
+			if(this.cookTimeLeft >= 0.0)
+			{
+				this.cookTimeLeft = aCookTimeLeft;
+			}
+		}
+		//checks if is done
+		public boolean isDone(int aCookTimeLeft)
+		{
+			if(this.cookTimeLeft >= 0.0)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		//subtracts one minute from cooking time
+		public void cookForOneMinute()
+		{
+			cookTimeLeft = cookTimeLeft - 1;
+		}
+		//tostring
+		public String toString()
+		{
+			return "Customer: " + customer + ", Order: " + foodOrder + ", Cooking Time Left: " + cookTimeLeft;
+		}
+		//compares based on cooking time
+		public int compareTo(Object aOrder) 
+		{
+			Order temp = (Order)aOrder;
+			if(this.cookTimeLeft > temp.getCookTimeLeft())
+			{
+				return 1;
+			}
+			else if(this.getCookTimeLeft() < temp.getCookTimeLeft())
+			{
+				return -1;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+}
