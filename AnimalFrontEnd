@@ -1,0 +1,132 @@
+//Rory Giblin Lab 08
+package AnimalFrontEndPackage;
+import java.util.Scanner;
+public class AnimalFrontEnd 
+{
+	public static void main(String[] args)
+	{
+		AnimalCollection animalCollection = new AnimalCollection();
+		Scanner in = new Scanner(System.in);
+		System.out.println("Welcome to the Cat and Dog collection!");
+		int userSelection = 0;
+		while(userSelection != 3)
+		{
+			System.out.println("Would you like to ");
+			System.out.println("1. Add a cat or dog ");
+			System.out.println("2. Remove a cat or dog ");
+			System.out.println("3. Quit ");
+			System.out.println("Enter a selection ");
+			userSelection = Integer.parseInt(in.nextLine());
+			if(userSelection == 1)
+			{
+				System.out.println("Would you like to add a 1. House Cat, 2. A Leopard, 3. A Domestic Dog, or 4."
+					+ " a wolf?");
+				int userSecondSelection = Integer.parseInt(in.nextLine());
+				if(userSecondSelection == 1)
+				{
+					System.out.println("Enter the house cat's name, weight, mood, and type");
+					String name = in.nextLine();
+					double weight = Double.parseDouble(in.nextLine());
+					String mood = in.nextLine().toLowerCase();
+					String type = in.nextLine().toLowerCase();
+					if(type.equals("short hair") || type.equals("bombay") || type.equals("ragdoll") || 
+							type.equals("sphinx") || type.equals("scottish Fold"))
+					{
+						if(mood.equals("sleepy") || mood.equals("playful") || mood.equals("hungry"))
+						{
+							animalCollection.add(new HouseCat(name, weight, mood, type));
+							animalCollection.printList();
+						}
+						else 
+						{
+							System.out.println("Invalid mood.");
+						}
+					}
+					else
+					{
+						System.out.println("Invalid type.");
+					}
+				}
+				else if(userSecondSelection == 2)
+				{
+					System.out.println("Enter the leopard's name, weight, mood, and number of spots");
+					String name = in.nextLine();
+					double weight = Double.parseDouble(in.nextLine());
+					String mood = in.nextLine().toLowerCase();
+					int numSpots = Integer.parseInt(in.nextLine());
+					if(mood.equals("sleepy") || mood.equals("playful") || mood.equals("hungry"))
+					{
+						animalCollection.add(new Leopard(name, weight, mood, numSpots));
+						animalCollection.printList();
+					}
+					else 
+					{
+						System.out.println("Invalid mood.");
+					}
+				}
+				else if(userSecondSelection == 3)
+				{
+					System.out.println("Enter the domestic dog's name, weight, energy level, and type");
+					String name = in.nextLine();
+					double weight = Double.parseDouble(in.nextLine());
+					int energyLevel = Integer.parseInt(in.nextLine());
+					String type = in.nextLine().toLowerCase();
+					if(type.equals("retriever") || type.equals("terrier") || type.equals("husky") || 
+							type.equals("yappy") || type.equals("mutt"))
+					{
+						if(energyLevel > 0 && energyLevel < 101)
+						{
+							animalCollection.add(new DomesticDog(name, weight, energyLevel, type));
+							animalCollection.printList();
+						}
+						else 
+						{
+							System.out.println("Invalid energy level.");
+						}
+					}
+					else
+					{
+						System.out.println("Invalid type.");
+					}
+				}
+				else if(userSecondSelection == 4)
+				{
+					System.out.println("Enter the wolf's name, weight, energy level, and pack leader's name");
+					String name = in.nextLine();
+					double weight = Double.parseDouble(in.nextLine());
+					int energyLevel = Integer.parseInt(in.nextLine());
+					String packLeaderName = in.nextLine();
+					if(energyLevel > 0 && energyLevel < 101)
+					{
+						animalCollection.add(new Wolf(name, weight, energyLevel, packLeaderName));
+						animalCollection.printList();
+					}
+					else 
+					{
+						System.out.println("Invalid energy level.");
+					}
+				}
+				else
+				{
+					System.out.println("Invalid input.");
+				}
+			}
+			else if(userSelection == 2)
+			{
+				System.out.println("Enter the animals name that you want removed.");
+				String removeName = in.nextLine();
+				animalCollection.remove(removeName);
+				System.out.println("Updated collection: ");
+				animalCollection.printList();
+			}
+			else if(userSelection == 3)
+			{
+				System.out.println("Thank you for using animal collection!");
+			}
+			else 
+			{
+				System.out.println("Please choose a number 1-3.");
+			}
+		}
+	}
+}
