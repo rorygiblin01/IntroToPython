@@ -1,0 +1,323 @@
+import java.awt.EventQueue;
+
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import java.awt.FlowLayout;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JPopupMenu;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import javax.swing.JButton;
+
+public class HWAPP {
+	static ArrayList<Deadline> courses = new ArrayList();
+	Color[] colors;
+
+	
+
+	private JFrame frmHwApp;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		courses.add(new Exam("Unix"));
+		courses.add(new Exam("Linux"));
+		courses.add(new Exam("Java"));
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					HWAPP window = new HWAPP();
+					window.frmHwApp.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public HWAPP() {
+		initialize();
+	}
+	
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frmHwApp = new JFrame();
+		frmHwApp.setTitle("Gregory & Rory's HW APP");
+		frmHwApp.setBounds(100, 100, 377, 300);
+		frmHwApp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		colors = new Color[6];
+		colors[0] = new Color(0,0,0); //homework low priority
+		colors[1] = new Color(100,100,100); //homework medium priority
+		colors[2] = new Color(150,150,150); //homework high priority
+		colors[3] = new Color(175,175,175); //exam low priority
+		colors[4] = new Color(200,200,200); //exam medium priority
+		colors[5] = new Color(255,255,255); //exam high priority
+		
+		
+		
+
+		frmHwApp.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JPanel panel_UnixCourse = new JPanel();
+		frmHwApp.getContentPane().add(panel_UnixCourse);
+		
+		JLabel lblNewLabel_UnixCourse = new JLabel("Unix Course");
+		panel_UnixCourse.add(lblNewLabel_UnixCourse);
+		
+		
+		
+		
+		//adding two dropdown menus
+		String[] choices = { "Low Priority", "Medium Priority", "High Priority"};
+		JComboBox<String> cb = new JComboBox<String>(choices);
+
+		cb.setMaximumSize(cb.getPreferredSize()); // added code
+		cb.setAlignmentX(Component.CENTER_ALIGNMENT);// added code
+		panel_UnixCourse.add(cb);
+		String[] choices_2 = { "Exam", "Homework"};
+		JComboBox<String> cb_2 = new JComboBox<String>(choices_2);
+
+		cb_2.setMaximumSize(cb_2.getPreferredSize()); // added code
+		cb_2.setAlignmentX(Component.CENTER_ALIGNMENT);// added code
+		panel_UnixCourse.add(cb_2);
+		
+		
+		JPanel panel_LinuxCourse = new JPanel();
+		frmHwApp.getContentPane().add(panel_LinuxCourse);
+		
+		JLabel lblNewLabel_LinuxCourse = new JLabel("Linux Course");
+		panel_LinuxCourse.add(lblNewLabel_LinuxCourse);
+		
+		//dropdown menu for Linux
+		JComboBox<String> cbL = new JComboBox<String>(choices);
+
+		cbL.setMaximumSize(cbL.getPreferredSize()); // added code
+		cbL.setAlignmentX(Component.CENTER_ALIGNMENT);// added code
+		panel_LinuxCourse.add(cbL);
+		JComboBox<String> cb_2L = new JComboBox<String>(choices_2);
+
+		cb_2L.setMaximumSize(cb_2L.getPreferredSize()); // added code
+		cb_2L.setAlignmentX(Component.CENTER_ALIGNMENT);// added code
+		panel_LinuxCourse.add(cb_2L);
+		
+		JPanel panel_JavaCourse = new JPanel();
+		frmHwApp.getContentPane().add(panel_JavaCourse);
+		
+		JLabel lblNewLabel_JavaCourse = new JLabel("Java Course");
+		panel_JavaCourse.add(lblNewLabel_JavaCourse);
+		
+		JComboBox<String> cbJ = new JComboBox<String>(choices);
+
+		cbJ.setMaximumSize(cbJ.getPreferredSize()); // added code
+		cbJ.setAlignmentX(Component.CENTER_ALIGNMENT);// added code
+		panel_JavaCourse.add(cbJ);
+		JComboBox<String> cb_2J = new JComboBox<String>(choices_2);
+
+		cb_2J.setMaximumSize(cb_2J.getPreferredSize()); // added code
+		cb_2J.setAlignmentX(Component.CENTER_ALIGNMENT);// added code
+		panel_JavaCourse.add(cb_2J);
+		
+		JPanel panel_Priority = new JPanel();
+		frmHwApp.getContentPane().add(panel_Priority);
+		
+		JPanel panel_File = new JPanel();
+		frmHwApp.getContentPane().add(panel_File);
+		
+		JButton btnNewButton_Load = new JButton("Load");
+		panel_File.add(btnNewButton_Load);
+		
+		JButton btnNewButton_Save = new JButton("Save");
+		panel_File.add(btnNewButton_Save);
+		
+		coloring(2,lblNewLabel_JavaCourse);
+		coloring(0,lblNewLabel_UnixCourse);
+		coloring(1,lblNewLabel_LinuxCourse);
+		
+		//Selecting Priority for Unix Course
+		cb.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				courses.get(0).urgency=cb.getSelectedIndex();
+				System.out.println(courses.get(0).toString());
+				coloring(0,lblNewLabel_UnixCourse);
+				}
+		});
+		//Set Course1 Deadline Type
+		cb_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (cb_2.getSelectedIndex() == 0){
+					courses.set(0,courses.get(0).toExam());
+				}
+				else {
+					courses.set(0,courses.get(0).toHomework());
+				}
+				System.out.println(courses.get(0).toString());
+				coloring(0,lblNewLabel_UnixCourse);
+				}
+			
+		});
+		
+		//Selecting Priority for Linux Course
+		cbL.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				courses.get(1).urgency=cbL.getSelectedIndex();
+				System.out.println(courses.get(1).toString());
+				coloring(1,lblNewLabel_LinuxCourse);
+				}
+		});
+		//Set Course2 Deadline Type
+		
+		cb_2L.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (cb_2L.getSelectedIndex() == 1){
+					courses.set(1,courses.get(1).toHomework());
+				}
+				else {
+					courses.set(1,courses.get(1).toExam());
+				}
+				System.out.println(courses.get(1).toString());
+				coloring(1,lblNewLabel_LinuxCourse);
+				}
+			
+			
+		});
+		
+		
+		//Selecting Priority for Java Course
+		cbJ.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				courses.get(2).urgency=cbJ.getSelectedIndex();
+				System.out.println(courses.get(2).toString());
+				coloring(2,lblNewLabel_JavaCourse);
+				}
+		});
+		//Set Course3 Deadline Type
+		cb_2J.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (cb_2J.getSelectedIndex() == 1){
+					courses.set(2,courses.get(2).toHomework());
+				}
+				else {
+					courses.set(2,courses.get(2).toExam());
+				}
+				System.out.println(courses.get(2).toString());
+				coloring(2,lblNewLabel_JavaCourse);
+			
+				}
+			
+		});
+		btnNewButton_Save.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+					FileWriter myWriter = new FileWriter("priority.txt");
+					String output = "";
+					for (int i = 0; i < courses.size();i++) {
+						output+=courses.get(i).urgency+",";
+						if (courses.get(i).calculateColor()>2) {
+							output+="0";							
+						}
+						else {
+							output+=1;
+						}
+						output+="\n";
+					}
+				    myWriter.write(output);
+				    System.out.println("We created a file");
+				    myWriter.close();
+				}catch(IOException ioe){
+					System.out.println("Error");
+				}
+			}
+			});
+		btnNewButton_Load.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		            try{
+		            	File myWriter = new File("priority.txt");
+		                Scanner scanner=new Scanner(myWriter);
+		                for(int course=0;course<3;course++) {
+		                    String line=scanner.nextLine();
+		                    String[] info=line.split(",");
+		                    int urgency=Integer.valueOf(info[0]);
+		                    int type=Integer.valueOf(info[1]);
+		                    if(course==0) {
+		                    	//Unix
+		                    	courses.get(0).setUrgency(urgency);
+		                    	if(type==0) {
+		                    		courses.set(0,courses.get(0).toExam());
+		                    	}else {
+		                    		courses.set(0,courses.get(0).toHomework());
+		                    	}
+		                    	coloring(0,lblNewLabel_UnixCourse);
+		                    	cb.setSelectedIndex(urgency);
+		                    	cb_2.setSelectedIndex(type);
+		                    	
+		                    }else if(course==1) {
+		                    	//Java
+		                    	courses.get(1).setUrgency(urgency);
+		                    	if(type==0) {
+		                    		courses.set(1,courses.get(1).toExam());
+		                    	}else {
+		                    		courses.set(1,courses.get(1).toHomework());
+		                    	}
+		                    	coloring(1,lblNewLabel_LinuxCourse);
+		                    	cbL.setSelectedIndex(urgency);
+		                    	cb_2L.setSelectedIndex(type);
+		                    }else if(course==2) {
+		                    	//Unix
+		                    	courses.get(2).setUrgency(urgency);
+		                    	if(type==0) {
+		                    		courses.set(2,courses.get(2).toExam());
+		                    	}else {
+		                    		courses.set(2,courses.get(2).toHomework());
+		                    	}
+		                    	coloring(0,lblNewLabel_JavaCourse);
+		                    	cbJ.setSelectedIndex(urgency);
+		                    	cb_2J.setSelectedIndex(type);
+		                    	}
+		                    	
+		                    	
+		                    }
+		                    
+		            }catch(Exception er){
+		            	System.out.println("Error");
+		            }
+		    }
+		    });
+		
+		
+		
+		
+		
+				
+				
+		
+	}
+	
+	public void coloring(int course,JLabel label) {
+		label.setForeground(colors[courses.get(course).calculateColor()]);
+	}
+
+}
