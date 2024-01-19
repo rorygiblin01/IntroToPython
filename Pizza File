@@ -1,0 +1,43 @@
+
+size=[["Extra Large",20], ["Large",15], ["Medium",12],["Small",10]]
+
+toppings=[["None",0],["Mushrooms",4],["Pineapple",3],["Peppers",5],["Pepperoni",3],["Meatball",3]]
+
+crust=[["Regular",0], ["Thin",2], ["Stuffed Cheese",3]]
+
+def display_menu_items(mesg, items):
+    print(mesg)
+    for x in range(0, len(items)):
+        print(x+1,")",items[x][0],"($"+str(items[x][1])+")")
+
+p=input("Would you like to order a pizza (Yes/No)")
+
+if p.upper()=="N" or p.upper()=="NO":
+    print("Okay. Goodbye.")
+elif p.upper()=="Y" or p.upper()=="YES":
+    print("Great. Please answer the following questions")
+    
+    display_menu_items("What size pizza? ", size)
+    s=input("Please select the number corresponding to the size: ")
+    r=int(s)
+    if r<1 or r>len(size):
+        print("Unknown size - the default is the Large")
+        s="2"
+    
+    display_menu_items("Select your toppings ", toppings)
+    t=input("Please enter the number corresponding to the topping: ")
+    r=int(t)
+    if r<1 or r>len(toppings):
+        print("Unknown topping - the default is None")
+        t="1"
+    
+    display_menu_items("Select your crust ", crust)
+    c=input("Please enter the number corresponding to the crust: ")
+    r=int(c)
+    if r<1 or r>len(crust):
+        print("Unknown crust - the default is regular")
+        c="1"
+        
+    total=size[int(s)-1][1]+toppings[int(t)-1][1]+crust[int(c)-1][1]
+    
+    print("The total bill is $",total)
