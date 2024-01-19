@@ -1,0 +1,42 @@
+
+public class Homework extends Deadline {
+
+	public Homework(String courseName) {
+		super(courseName);
+	}
+	public Homework(String courseName,int color, int urgency) {
+		super(courseName);
+		this.color = color;
+		this.urgency = urgency;
+	}
+	public int calculateColor() {
+		return urgency;
+	}
+	public int getColor() {
+		return color;
+	}
+	@Override
+	public String toString() {
+        String urgencyString = null;
+        if(urgency==0){
+            urgencyString="Low";
+        }
+        if(urgency==1){
+            urgencyString="medium";
+        }
+        if(urgency==2){
+        	urgencyString="high";
+        }
+        
+        return courseName + " Homework urgency is " +urgencyString;
+	}
+@Override
+	public Exam toExam() {
+		return new Exam(courseName,color,urgency);
+	}
+@Override	
+	public Homework toHomework() {
+		return this;
+	}
+
+}
