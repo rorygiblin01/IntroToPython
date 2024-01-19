@@ -1,0 +1,33 @@
+public class Deadline{
+	protected int color;
+	protected int urgency;
+	protected String courseName;
+	
+	public Deadline(String courseName) {
+		color = 0;
+		urgency = 0;
+		this.courseName = courseName;
+	}
+	
+	public void setUrgency(int urgency) {
+		this.urgency = urgency;
+	}
+	public int getUrgency() {
+		return this.urgency;
+	}
+
+	public Deadline toExam() {
+		return null;
+	}
+
+	public Homework toHomework() {
+		return null;
+	}
+
+	public int calculateColor() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
+}
