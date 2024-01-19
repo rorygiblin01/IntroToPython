@@ -1,0 +1,404 @@
+//Rory Giblin Grade Calculator 
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import java.awt.FlowLayout;
+import javax.swing.JPanel;
+import java.awt.Rectangle;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Component;
+import java.awt.Dimension;
+import javax.swing.JTextField;
+import java.awt.Point;
+import java.awt.Label;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class GradeCalculator {
+
+	private JFrame frame;
+	private JTextField textFieldHW00;
+	private JTextField textFieldHW01;
+	private JLabel lblNewLabelHW01;
+	private JTextField textFieldHW02;
+	private JTextField textFieldHW03;
+	private JLabel lblNewLabelHW02;
+	private JLabel lblNewLabelHW03;
+	private JTextField textFieldHW04;
+	private JTextField textFieldLab00;
+	private JLabel lblNewLabelHW04;
+	private JLabel lblNewLabelLab00;
+	private JTextField textFieldLab01;
+	private JTextField textFieldLab02;
+	private JTextField textFieldLab03;
+	private JLabel lblNewLabelLab01;
+	private JLabel lblNewLabelLab02;
+	private JTextField textFieldLab04;
+	private JLabel lblNewLabelLab03;
+	private JLabel lblNewLabelLab04;
+	private JTextField textFieldLab05;
+	private JTextField textFieldLab06;
+	private JLabel lblNewLabelLab05;
+	private JLabel lblNewLabelLab06;
+	private JTextField textFieldLab07;
+	private JTextField textFieldLab08;
+	private JLabel lblNewLabelLab07;
+	private JLabel lblNewLabelLab08;
+	private JTextField textFieldLab09;
+	private JTextField textFieldLab10;
+	private JLabel lblNewLabelLab09;
+	private JLabel lblNewLabelLab10;
+	private JTextField textFieldLab11;
+	private JLabel lblNewLabelLab11;
+	private JTextField textFieldLab12;
+	private JLabel lblNewLabelLab12;
+	private JPanel panelHW00;
+	private JPanel panelHW01;
+	private JPanel panelHW02;
+	private JPanel panelHW03;
+	private JPanel panelHW04;
+	private JPanel panelLab00;
+	private JPanel panelLab01;
+	private JPanel panelLab02;
+	private JPanel panelLab03;
+	private JPanel panelLab04;
+	private JPanel panelLab05;
+	private JPanel panelLab06;
+	private JPanel panelLab07;
+	private JPanel panelLab08;
+	private JPanel panelLab09;
+	private JPanel panelLab10;
+	private JPanel panelLab11;
+	private JPanel panelLab12;
+	private JPanel panelExtraCredit;
+	private JLabel lblExtraCredit;
+	private JTextField textFieldExtraCredit;
+	private JPanel panelCalcButton;
+	private JButton btnCalc;
+	private JLabel lblNewLabel_20;
+	private JLabel lblAnswer;
+	private JPanel panelAnswer;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GradeCalculator window = new GradeCalculator();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public GradeCalculator() 
+	{
+		initialize();
+	}
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 503);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
+		
+		panelHW00 = new JPanel();
+		frame.getContentPane().add(panelHW00);
+		
+		textFieldHW00 = new JTextField();
+		panelHW00.add(textFieldHW00);
+		textFieldHW00.setColumns(10);
+		
+		JLabel lblNewLabelHW00 = new JLabel("HW00");
+		panelHW00.add(lblNewLabelHW00);
+		lblNewLabelHW00.setSize(new Dimension(5, 5));
+		lblNewLabelHW00.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelHW01 = new JPanel();
+		frame.getContentPane().add(panelHW01);
+		
+		textFieldHW01 = new JTextField();
+		panelHW01.add(textFieldHW01);
+		textFieldHW01.setColumns(10);
+		
+		lblNewLabelHW01 = new JLabel("HW01");
+		panelHW01.add(lblNewLabelHW01);
+		lblNewLabelHW01.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelHW02 = new JPanel();
+		frame.getContentPane().add(panelHW02);
+		
+		textFieldHW02 = new JTextField();
+		panelHW02.add(textFieldHW02);
+		textFieldHW02.setColumns(10);
+		
+		lblNewLabelHW02 = new JLabel("HW02");
+		panelHW02.add(lblNewLabelHW02);
+		lblNewLabelHW02.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelHW03 = new JPanel();
+		frame.getContentPane().add(panelHW03);
+		
+		textFieldHW03 = new JTextField();
+		panelHW03.add(textFieldHW03);
+		textFieldHW03.setColumns(10);
+		
+		lblNewLabelHW03 = new JLabel("HW03");
+		panelHW03.add(lblNewLabelHW03);
+		lblNewLabelHW03.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelHW04 = new JPanel();
+		frame.getContentPane().add(panelHW04);
+		
+		textFieldHW04 = new JTextField();
+		panelHW04.add(textFieldHW04);
+		textFieldHW04.setColumns(10);
+		
+		lblNewLabelHW04 = new JLabel("HW04");
+		panelHW04.add(lblNewLabelHW04);
+		lblNewLabelHW04.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelLab00 = new JPanel();
+		frame.getContentPane().add(panelLab00);
+		
+		textFieldLab00 = new JTextField();
+		panelLab00.add(textFieldLab00);
+		textFieldLab00.setColumns(10);
+		
+		lblNewLabelLab00 = new JLabel("Lab00");
+		panelLab00.add(lblNewLabelLab00);
+		lblNewLabelLab00.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelLab01 = new JPanel();
+		frame.getContentPane().add(panelLab01);
+		
+		textFieldLab01 = new JTextField();
+		panelLab01.add(textFieldLab01);
+		textFieldLab01.setColumns(10);
+		
+		lblNewLabelLab01 = new JLabel("Lab01");
+		panelLab01.add(lblNewLabelLab01);
+		lblNewLabelLab01.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelLab02 = new JPanel();
+		frame.getContentPane().add(panelLab02);
+		
+		textFieldLab02 = new JTextField();
+		panelLab02.add(textFieldLab02);
+		textFieldLab02.setColumns(10);
+		
+		lblNewLabelLab02 = new JLabel("Lab02");
+		panelLab02.add(lblNewLabelLab02);
+		lblNewLabelLab02.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelLab03 = new JPanel();
+		frame.getContentPane().add(panelLab03);
+		
+		textFieldLab03 = new JTextField();
+		panelLab03.add(textFieldLab03);
+		textFieldLab03.setColumns(10);
+		
+		lblNewLabelLab03 = new JLabel("Lab03");
+		panelLab03.add(lblNewLabelLab03);
+		lblNewLabelLab03.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelLab04 = new JPanel();
+		frame.getContentPane().add(panelLab04);
+		
+		textFieldLab04 = new JTextField();
+		panelLab04.add(textFieldLab04);
+		textFieldLab04.setColumns(10);
+		
+		lblNewLabelLab04 = new JLabel("Lab04");
+		panelLab04.add(lblNewLabelLab04);
+		lblNewLabelLab04.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelLab05 = new JPanel();
+		frame.getContentPane().add(panelLab05);
+		
+		textFieldLab05 = new JTextField();
+		panelLab05.add(textFieldLab05);
+		textFieldLab05.setColumns(10);
+		
+		lblNewLabelLab05 = new JLabel("Lab05");
+		panelLab05.add(lblNewLabelLab05);
+		lblNewLabelLab05.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelLab06 = new JPanel();
+		frame.getContentPane().add(panelLab06);
+		
+		textFieldLab06 = new JTextField();
+		panelLab06.add(textFieldLab06);
+		textFieldLab06.setColumns(10);
+		
+		lblNewLabelLab06 = new JLabel("Lab06");
+		panelLab06.add(lblNewLabelLab06);
+		lblNewLabelLab06.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelLab07 = new JPanel();
+		frame.getContentPane().add(panelLab07);
+		
+		textFieldLab07 = new JTextField();
+		panelLab07.add(textFieldLab07);
+		textFieldLab07.setColumns(10);
+		
+		lblNewLabelLab07 = new JLabel("Lab07");
+		panelLab07.add(lblNewLabelLab07);
+		lblNewLabelLab07.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelLab08 = new JPanel();
+		frame.getContentPane().add(panelLab08);
+		
+		textFieldLab08 = new JTextField();
+		panelLab08.add(textFieldLab08);
+		textFieldLab08.setColumns(10);
+		
+		lblNewLabelLab08 = new JLabel("Lab08");
+		panelLab08.add(lblNewLabelLab08);
+		lblNewLabelLab08.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelLab09 = new JPanel();
+		frame.getContentPane().add(panelLab09);
+		
+		textFieldLab09 = new JTextField();
+		panelLab09.add(textFieldLab09);
+		textFieldLab09.setColumns(10);
+		
+		lblNewLabelLab09 = new JLabel("Lab09");
+		panelLab09.add(lblNewLabelLab09);
+		lblNewLabelLab09.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelLab10 = new JPanel();
+		frame.getContentPane().add(panelLab10);
+		
+		textFieldLab10 = new JTextField();
+		panelLab10.add(textFieldLab10);
+		textFieldLab10.setColumns(10);
+		
+		lblNewLabelLab10 = new JLabel("Lab10");
+		panelLab10.add(lblNewLabelLab10);
+		lblNewLabelLab10.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelLab11 = new JPanel();
+		frame.getContentPane().add(panelLab11);
+		
+		textFieldLab11 = new JTextField();
+		panelLab11.add(textFieldLab11);
+		textFieldLab11.setColumns(10);
+		
+		lblNewLabelLab11 = new JLabel("Lab11");
+		panelLab11.add(lblNewLabelLab11);
+		lblNewLabelLab11.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelLab12 = new JPanel();
+		frame.getContentPane().add(panelLab12);
+		
+		textFieldLab12 = new JTextField();
+		panelLab12.add(textFieldLab12);
+		textFieldLab12.setColumns(10);
+		
+		lblNewLabelLab12 = new JLabel("Lab12");
+		panelLab12.add(lblNewLabelLab12);
+		lblNewLabelLab12.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelExtraCredit = new JPanel();
+		frame.getContentPane().add(panelExtraCredit);
+		
+		textFieldExtraCredit = new JTextField();
+		panelExtraCredit.add(textFieldExtraCredit);
+		textFieldExtraCredit.setColumns(10);
+		
+		lblExtraCredit = new JLabel("ExtraCredit");
+		panelExtraCredit.add(lblExtraCredit);
+		lblExtraCredit.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		panelCalcButton = new JPanel();
+		frame.getContentPane().add(panelCalcButton);
+		
+		btnCalc = new JButton("Calculate");
+		btnCalc.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		panelCalcButton.add(btnCalc);
+		
+		panelAnswer = new JPanel();
+		frame.getContentPane().add(panelAnswer);
+		
+		lblAnswer = new JLabel("New label");
+		panelAnswer.add(lblAnswer);
+		
+		
+		btnCalc.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				try 
+				{
+					System.out.println("test");
+					String hw00Value = textFieldHW00.getText();
+					String hw01Value = textFieldHW01.getText();
+					String hw02Value = textFieldHW02.getText();
+					String hw03Value = textFieldHW03.getText();
+					String hw04Value = textFieldHW04.getText();
+					String lab00Value = textFieldLab00.getText();
+					String lab01Value = textFieldLab01.getText();
+					String lab02Value = textFieldLab02.getText();
+					String lab03Value = textFieldLab03.getText();
+					String lab04Value = textFieldLab04.getText();
+					String lab05Value = textFieldLab05.getText();
+					String lab06Value = textFieldLab06.getText();
+					String lab07Value = textFieldLab07.getText();
+					String lab08Value = textFieldLab08.getText();
+					String lab09Value = textFieldLab09.getText();
+					String lab10Value = textFieldLab10.getText();
+					String lab11Value = textFieldLab11.getText();
+					String lab12Value = textFieldLab12.getText();
+					String extraCreditValue = textFieldExtraCredit.getText();
+					int hw00ValueInt = Integer.valueOf(hw00Value);
+					int hw01ValueInt = Integer.valueOf(hw01Value);
+					int hw02ValueInt = Integer.valueOf(hw02Value);
+					int hw03ValueInt = Integer.valueOf(hw03Value);
+					int hw04ValueInt = Integer.valueOf(hw04Value);
+					int lab00ValueInt = Integer.valueOf(lab00Value);
+					int lab01ValueInt = Integer.valueOf(lab01Value);
+					int lab02ValueInt = Integer.valueOf(lab02Value);
+					int lab03ValueInt = Integer.valueOf(lab03Value);
+					int lab04ValueInt = Integer.valueOf(lab04Value);
+					int lab05ValueInt = Integer.valueOf(lab05Value);
+					int lab06ValueInt = Integer.valueOf(lab06Value);
+					int lab07ValueInt = Integer.valueOf(lab07Value);
+					int lab08ValueInt = Integer.valueOf(lab08Value);
+					int lab09ValueInt = Integer.valueOf(lab09Value);
+					int lab10ValueInt = Integer.valueOf(lab10Value);
+					int lab11ValueInt = Integer.valueOf(lab11Value);
+					int lab12ValueInt = Integer.valueOf(lab12Value);
+					int extraCreditValueInt = Integer.valueOf(extraCreditValue);
+					double theSum = 0;
+					double theAverage = 0;
+					theSum = ((hw00ValueInt + hw01ValueInt + hw02ValueInt + hw03ValueInt + hw04ValueInt + lab00ValueInt
+						+ lab01ValueInt + lab02ValueInt + lab03ValueInt + lab04ValueInt + lab05ValueInt + lab06ValueInt 
+						+ lab07ValueInt + lab08ValueInt + lab09ValueInt + lab10ValueInt + lab11ValueInt + lab12ValueInt));
+					theAverage = (100*extraCreditValueInt) + theSum;
+					theAverage = theSum/18;
+					lblAnswer.setText(String.format("%.2f%%",theAverage));
+				}
+				catch(NumberFormatException error)
+				{
+					lblAnswer.setText("Number Format Exception: " + error.getMessage());
+				}
+			}
+		});
+
+		}
+	}
+
