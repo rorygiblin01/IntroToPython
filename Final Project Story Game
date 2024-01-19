@@ -1,0 +1,259 @@
+import sys
+
+knife = False
+money = False
+robber = 100
+oldLady = 100
+
+def quit():
+    print("Thank you for playing the game")
+    print("🌲🌲🌲")
+    print("🌲🪦🌲")
+    print("🌲🌲🌲")
+    sys.exit()
+
+def introScene():
+    print("You are in a dark forest late at night and need to find a way home, where would you like to go?")
+    print("🌲  🌲")
+    print("🌲🧑🌲")
+    print("🌲  🌲")
+    directions = ["forward"]    
+    userInput = ""
+    while userInput not in directions:
+        print("Options: forward")
+        userInput = input()
+        if userInput == "forward":
+            showSecondArea()
+        else: 
+           print("Please enter a valid option for the adventure game.")
+           
+def showSecondArea():
+    print("You have come to a crossroad with three paths, which will you choose?")
+    print("🌲  🌲")
+    print("  🧑  ")
+    print("🌲  🌲")
+    directions = ["forward", "backward", "left", "right"]
+    userInput = ""
+    while userInput not in directions:
+        print("Options: forward, backward, left, right")
+        userInput = input()
+        if userInput == "forward":
+            showRobbingScene()
+        elif userInput == "backward":
+            introScene()
+        elif userInput == "left":
+            oldLadyScene()
+        elif userInput == "right":
+            knifeArea()
+        else:
+            print("Please enter a valid option for the adventure game.")
+        
+def knifeArea():
+    print("You have come across a knife in your travels and decide it could be useful, but there is a fence keeping you from going right. What will you do?")
+    global knife
+    print("🌲  🌲")
+    print("  🧑🌲")
+    print("🌲🌲🌲")
+    knife = True
+    directions = ["forward", "left"]
+    userInput = ""
+    while userInput not in directions:
+        print("Options: left, forward")
+        userInput = input()
+        if userInput == "left":
+            showSecondArea()
+        elif userInput == "forward":
+            showRightFence()
+        else:
+            print("Please enter a valid option for the adventure game.")
+
+def oldLadyScene():
+    print("You come across an old lady on the ground who cannot get up, you decide to help her up and for this she gives you money. Which way to next?")
+    global money
+    money = True
+    print("🌲  🌲")
+    print("🌲👵🧑  ")
+    print("🌲🌲🌲")
+    directions = ["forward", "right"]
+    userInput = ""
+    while userInput not in directions:
+        print("Options: right, forward")
+        userInput = input()
+        if userInput == "right":
+            showSecondArea()
+        elif userInput == "forward":
+            showLeftFence()
+        else:
+            print("Please enter a valid option for the adventure game.")
+
+def showRobbingScene():
+    global robber, knife
+    print("You have come across a mugger who demands money or your life, will you fight, flee, or give him money?")
+    print("🌲😡🌲")
+    print("  🧑  ")
+    print("🌲  🌲")
+    options = ["fight", "flee", "give money"]
+    userInput = ""
+    while userInput not in options:
+        print("Options: flee, fight, give money")
+        userInput = input()
+        if userInput == "flee":
+            showSecondArea()
+        elif userInput == "fight":
+            if knife == True:
+                print("You attack the robber with the knife you have found and successfully kill him.")
+                robber = 0
+                robberDead()
+                return
+            else:
+                print("You don't have a weapon and the robber kills you.")
+                quit()
+        elif userInput == "give money":
+            if money == True:
+                print("You have safely escaped by giving the robber your money, good thing you helped that old lady.")
+                robberDead()
+            else:
+                print("But you had no money on you and he killed you")
+                quit()
+        else:
+            print("Please enter a valid option for the adventure game.")
+        robberDead()
+                
+def showLeftFence():
+    global robber, knife
+    print("You feel very boxed in, as there is fence to the left and above you, you wonder if you will ever get home. What will you do?")
+    print("🌲🌲🌲")
+    print("🌲🧑  ")
+    print("🌲  🌲")
+    directions = ["right", "backward"]
+    userInput = ""
+    while userInput not in directions:
+        print("Options: right, backward")
+        userInput = input()
+        if userInput == "right":
+            if robber == 0:
+                robberDead()
+            else:
+                showRobbingScene()
+        elif userInput == "backward":
+            if oldLady == 0:
+                helpedOldLady()
+            else:
+                oldLadyScene()
+        else:
+            print("Please enter a valid option for the adventure game.")
+    
+def showRightFence():
+    global robber, knife
+    print("You feel very boxed in, as there is fence to the right and above you, you wonder if you will ever get home. What will you do?")
+    print("🌲🌲🌲")
+    print("  🧑🌲")
+    print("🌲  🌲")
+    directions = ["left", "backward"]
+    userInput = ""
+    while userInput not in directions:
+        print("Options: left, backward")
+        userInput = input()
+        if userInput == "left":
+            if robber == 0:
+                robberDead()
+            else:
+                showRobbingScene()
+        elif userInput == "backward":
+            if knife:
+                knifeOwned()
+            else:
+                knifeArea()
+        else:
+            print("Please enter a valid option for the adventure game.")
+
+def robberDead():
+    print("After successfully getting past the robber four paths are now open, which will you choose?")
+    print("🌲  🌲")
+    print("  🧑  ")
+    print("🌲  🌲")
+    directions = ["forward", "left", "right", "backward"]
+    userInput = ""
+    while userInput not in directions:
+        print("Options: forward, left, right, backward")
+        userInput = input()
+        if userInput == "forward":
+            showWatchingScene()
+        elif userInput == "left":
+            showLeftFence()
+        elif userInput == "right":
+            showRightFence()
+        elif userInput == "backward":
+            showSecondArea()
+        else:
+            print("Please enter a valid option for the adventure game.")
+
+def helpedOldLady():
+    print("This was the area you helped the old lady, where do you want to go now?")
+    print("🌲  🌲")
+    print("🌲🧑  ")
+    print("🌲🌲🌲")
+    directions = ["forward", "right"]
+    userInput = ""
+    while userInput not in directions:
+        print("Options: right, forward")
+        userInput = input()
+        if userInput == "right":
+            showSecondArea()
+        elif userInput == "forward":
+            showLeftFence()
+        else:
+            print("Please enter a valid option for the adventure game.")
+
+def knifeOwned():
+    print("This was the area you found that knife, where do you want to go now?")
+    print("🌲  🌲")
+    print("  🧑🌲")
+    print("🌲🌲🌲")
+    directions = ["forward", "left"]
+    userInput = ""
+    while userInput not in directions:
+        print("Options: left, forward")
+        userInput = input()
+        if userInput == "left":
+            showSecondArea()
+        elif userInput == "forward":
+            showRightFence()
+        else:
+            print("Please enter a valid option for the adventure game.")
+def showWatchingScene():
+    print("You feel like you are being watched, but you know the end is near, your next area is important. Where will you go?")
+    print("🌲  🌲")
+    print("🌲🧑  ")
+    print("🌲🌲🌲")
+    directions = ["right", "forward"]
+    userInput = ""
+    while userInput not in directions:
+        print("Options: right, forward")
+        userInput = input()
+        if userInput == "right":
+            showDemonArea()
+        elif userInput == "forward":
+            print("Finally you have made it out of the forest and back home safe!")
+            print("   🏠  ")
+            print("🌲🧑🌲")
+            print("🌲🌲🌲")
+            quit()
+        else:
+            print("Please enter a valid option for the adventure game.")
+
+def showDemonArea():
+    print("You come across a giant demon that you have no choice but to fight for your life.")
+    print("🌲😈🌲")
+    print("🌲🧑🌲")
+    print("🌲🌲🌲")
+    if knife:
+        print("You defeated the demon, and run back to where you were.")
+        showWatchingScene()
+    else:
+        print("Without any kind of weapon the demon eats you up and you die.")
+        quit()
+        
+print("Welcome to the dark forest adventure game, let's see if you can find your way home tonight.")
+introScene()
+        
