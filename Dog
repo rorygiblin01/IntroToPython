@@ -1,0 +1,15 @@
+package AnimalFrontEndPackage;
+
+public class Dog extends Animal 
+{
+	protected int energyLevel;
+	public Dog(String name, double weight, int energyLevel)
+	{
+		super(name, weight);
+		this.energyLevel = energyLevel;
+	}
+	public int getEnergyLevel()
+	{
+		return energyLevel;
+	}
+}
