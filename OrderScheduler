@@ -1,0 +1,108 @@
+public class OrderScheduler 
+{
+	//instance variables
+	private MinHeap orders;
+    private Order currentOrder;
+    private int currentMinute;
+    private int totalOrders;
+    private int summedWaitingTimes;
+    //constructor
+    public OrderScheduler() 
+    {
+        this.orders = new MinHeap();
+        this.currentOrder = null;
+        this.currentMinute = 0;
+        this.totalOrders = 0;
+        this.summedWaitingTimes = 0;
+    }
+    //add order to the list
+    public void addOrder(Order order) 
+    {
+    	if (currentOrder == null) 
+    	{
+            currentOrder = order;
+            System.out.println("ORDER ADDED: " + currentOrder.toString());
+        }
+    	else 
+    	{
+            orders.add(order);
+            System.out.println("ORDER ADDED: " + order.toString());
+        }
+        totalOrders++;
+    }
+    //getters and setters
+    public Order getCurrentOrder() 
+    {
+        return this.currentOrder;
+    }
+
+    public void setCurrentOrder(Order order) 
+    {
+        this.currentOrder = order;
+    }
+
+    public int getCurrentMinute() 
+    {
+        return this.currentMinute;
+    }
+
+    public void setCurrentMinute(int minute) 
+    {
+        this.currentMinute = minute;
+    }
+
+    public int getTotalOrders() 
+    {
+        return this.totalOrders;
+    }
+
+    public int getSummedWaitingTimes() 
+    {
+        return this.summedWaitingTimes;
+    }
+
+    public Order getNextOrder() 
+    {
+    	if (this.orders.isEmpty()) 
+        {
+            return null;
+        }
+        Order nextOrder = this.orders.poll();
+        this.summedWaitingTimes += this.currentMinute - nextOrder.getCookTime();
+        return nextOrder;
+    }
+    public void advanceOneMinute() 
+    {
+        currentMinute++;
+        //cook current order for one minute
+        currentOrder.cookForOneMinute();
+        //If order is done find waiting time and replace it with the next order on the heap
+        if (currentOrder.isDone(currentMinute))  
+        {
+            int waitingTime = currentMinute - currentOrder.getArrivalTime();
+            summedWaitingTimes += waitingTime;
+            if (!orders.isEmpty()) 
+            {
+                currentOrder = orders.poll();
+            } 
+            else 
+            {
+                currentOrder = null;
+            }
+        }
+    }
+    public boolean isDone() 
+    {
+        return currentOrder == null;
+    }
+    //calculate average waiting time
+    public double getAverageWaitingTime() 
+    {
+        if (totalOrders == 0) 
+        {
+            return 0.0;
+        }
+        return (double) summedWaitingTimes / totalOrders;
+    }
+}
+
