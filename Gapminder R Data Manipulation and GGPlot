@@ -1,0 +1,21 @@
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(stringr)
+gdp = read.csv("gdp_pcap.csv")
+gdp_2000 = gdp[,c("country", "X2000")]
+lex = read.csv("lex.csv")
+lex_2000 = lex[,c("country", "X2000")]
+lex_gdp = merge(gdp_2000, lex_2000,
+                      by.x = 'country', by.y = 'country')
+colnames(lex_gdp) = c('country', 'gdp', 'lifeexpectancy')
+
+Value_unity <- ifelse(str_detect(lex_gdp$gdp, 'M'), 1e6,
+                      ifelse(str_detect(lex_gdp$gdp, 'k'),1e3,1)
+)
+Value_new <- Value_unity * as.numeric(str_remove(lex_gdp$gdp, 'k|M') )
+lex_gdp$gdp = Value_new
+filtered_data <- lex_gdp %>%
+  filter(country %in% c("China", "USA", "Iraq","Russia", "Italy", "Liberia", "Mexico", "Argentina", "France", "United Kingdom", "Norway", "Japan", "Zimbabwe", "Greece", "North Korea", "South Korea", "Niger", "Somalia"))
+ggplot(filtered_data, aes(x = gdp, y = lifeexpectancy, color = country)) +
+  geom_point()
