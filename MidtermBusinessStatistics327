@@ -1,0 +1,172 @@
+# Hospitals Midterm Rory Giblin
+
+# a) How big is the dataset?
+
+hospitals = read.csv("hospitals.csv")
+dim(hospitals)
+
+# 2000 x 18
+
+# b) What are the names of the columns?
+
+colnames(hospitals)
+
+#  "Hospital.Number"       "State"                 "Region.Number"         "Control.Number"       
+# "Service.Number"        "Beds"                  "Admissions"            "Census"               
+# "Outpatient.Visits"     "Births"                "Total.Expense"         "Payroll.Expense"      
+# "Personnel"             "Region"                "Control"               "Service"              
+# "Gen.Med...Surg.or.Not" "Births.or.Not"  
+
+# c) What data types are each column?
+
+classes = sapply(hospitals, class)
+classes
+
+# Hospital.Number                 State         Region.Number        Control.Number 
+# "integer"             "integer"             "integer"             "integer" 
+# Service.Number                  Beds            Admissions                Census 
+# "integer"             "integer"             "integer"             "integer" 
+# Outpatient.Visits                Births         Total.Expense       Payroll.Expense 
+# "integer"             "integer"             "integer"             "integer" 
+# Personnel                Region               Control               Service 
+# "integer"           "character"           "character"           "character" 
+# Gen.Med...Surg.or.Not         Births.or.Not 
+# "integer"             "integer"
+
+# d) Are there missing values?
+
+any(is.na(hospitals))
+
+# No N/As
+
+library(ggplot2)
+library(dplyr)
+
+# e) Which hospital has the lowest number of beds?
+
+min(hospitals$Beds)
+minBeds = hospitals %>% filter(Beds == 3)
+
+# 3 beds, hospital 1064 or 1751
+
+# f) Which hospital has the lowest expense?
+
+min(hospitals$Total.Expense)
+minExpense = hospitals %>% filter(Total.Expense == 1487)
+
+# $1487, hospital 826
+
+# g) How many hospitals deliver babies?
+
+deliverBabies = hospitals %>% filter(Births.or.Not == 1)
+nrow(deliverBabies)
+
+# 1112 deliver babies
+
+# h) Using ggplot, scatterplot number of beds vs Total Expense
+
+ggplot(hospitals, aes(x = Beds, y = Total.Expense)) + geom_point()
+
+# i) Using ggplot, scatterplot Admissions vs Total Expense
+
+ggplot(hospitals, aes(x = Admissions, y = Total.Expense)) + geom_point()
+
+# j) Using dplyr and ggplot, scatterplot beds vs Total Expense but only for hospitals that deliver babies
+
+ggplot(deliverBabies, aes(x = Beds, y = Total.Expense)) + geom_point()
+
+# k) One more question that you believe would be useful.
+
+ggplot(hospitals, aes(x = Beds, y = Personnel)) + geom_point()
+
+# i) For Pie Chart: One slice should be labeled Admissions.Choose another attribute for the second slice.
+
+notDeliverBabies = hospitals %>% filter(Births.or.Not == 0)
+totalAdmissionsDeliver = sum(deliverBabies$Admissions)
+totalAdmissionsNotDeliver = sum(notDeliverBabies$Admissions)
+pie_data = data.frame(
+  Category = c("Delivering Babies", "Not Delivering Babies"),
+  Admissions = c(totalAdmissionsDeliver, totalAdmissionsNotDeliver)
+)
+ggplot(pie_data, aes(x = "", y = Admissions, fill = Category)) +
+  geom_bar(stat = "identity") +
+  coord_polar("y", start = 0) +
+  labs(title = "Total Admissions of Hospitals by Deliveries") +
+  scale_fill_manual(values = c("Delivering Babies" = "blue", "Not Delivering Babies" = "red"))
+
+# ii) For the column/bar charts: Ensure that one column is titled
+# Admissions. Choose a different attribute for the other column. 
+
+filterSweetSpot = hospitals %>% filter(Beds >= 80 & Beds <= 90 | Beds >= 300 & Beds <= 350)
+ggplot(filterSweetSpot, aes(x = factor(ifelse(Beds >= 80 & Beds <= 90, "80-90", "300-350")), y = Admissions, fill = Admissions)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Beds", y = "Admissions") +
+  ggtitle("Admissions by Beds (80-90 and 300-350)")
+
+# iii) For Line Chart: one of the lines should represent Expense; choose another attribute for the second line.
+
+ggplot(filterSweetSpot, aes(x = Beds, y = Total.Expense)) + geom_point()
+
+# ii) The dependent variable should be Total Expense. Choose an independent variable from one of the remaining attributes.
+
+expenseRegression = lm(Total.Expense ~ Personnel, hospitals)
+summary(expenseRegression)
+
+# iii) What is the value of the R^2?
+# R^2 = .91
+
+# iv) What does the �! measure in this case? ( Hint: Percentage of variation in … explained by …)
+# Percentage of variation in total expense explained by personnel
+
+# v) What are the pvalues ? How many pvalues are reported, why ?What does each pvalue mean?
+# (Hint: pvalues have are related to generalizing from the sample to the population:
+# what is the sample here, what is the population?) (1-2 sentences)
+
+# the pvalues are 2e^-16, there is only one recorded a very small number so null is rejected,
+# pvalues is the probability the event or hypothesis would occur. the sample here is the
+# 2000 hospitals and the population would be all hospitals 
+
+# vi) Explain R square, pvalues.
+# the pvalue allows us to reject the null hypothesis of no correlation between the two variables
+# and the r square value supports this showing the relationship between the two
+
+#vii) What would be the right attribute size (independent variable) that seems most appropriate 
+# to lead you in the expense range of $55–$75 million?
+
+# this can be found by plugging into the equation given to us by the regression which is 
+# Net Expense = 165.141Personnel - 2062.562 Solving where Net Expense is between 55 and 75
+# million gives you a range personnel between 346 and 467
+
+# i) The dependent variable should be Total Expense (the column in the data set). 
+# Choose two independent variables from one of the remaining attributes.
+
+multiRegression = lm(Total.Expense ~ Service.Number + Control.Number, hospitals)
+summary(multiRegression)
+# ii) What is the value of the R^2?
+# R^2 = 0.043
+
+# iii) What does the �! measure in this case? ( Hint: Percentage of variation in … explained by …)
+
+# in this case it represents the measure of total expenses determined by changes in services offered
+# and type of ownership control
+
+# iv) What are the pvalues ? How many pvalues are reported, why What does each pvalue mean?
+# (Hint: pvalues have are related to generalizing from the sample to the population: what is 
+# the sample here, what is the population?) (1-2 sentences)
+
+# the pvalues for both are very small (2e^-16, 0.00131) which means different types of controls
+# and services offered are relevant information, each pvalue correlates to what percent the null
+# would be occuring at, the sample is the 2000 hospitals the population is all hospitals
+
+# v) Explain R square, pvalues.
+# the pvalues show there is statistical significance between the two values but the low r^2 shows
+# that there might be an error with the variance 
+
+# Write bullet points explaining your results and why they support your conclusion: option A or B?
+
+# I think that overall the safer bet would be to invest in the 300-400 beds hospitals.
+# The total expenses that you have per bed on average are lower when you have more beds which 
+# makes sense as a real world example. It also depends how you run the company as well, as both 
+# regressions show the importance of services offered,personnel amounts and type of ownership 
+# because they can play a role into your total expenses. You also should look into having a 
+# hospital with birthing options due to the vast increase of admissions it can draw.
